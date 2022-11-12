@@ -37,14 +37,14 @@
             this.listBox1.ItemHeight = 15;
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(428, 244);
+            this.listBox1.Size = new System.Drawing.Size(412, 274);
             this.listBox1.TabIndex = 0;
             // 
             // frmTeamManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(435, 297);
             this.Controls.Add(this.listBox1);
             this.Name = "frmTeamManagement";
             this.Text = "팀관리_팀원용";

@@ -12,12 +12,36 @@ namespace team_match_program
 {
     public partial class Form1 : Form
     {
-        Dictionary<string, string> IdPassward = new Dictionary<string, string>();
-        public List<string> Nickname = new List<string>() {"김근모01", "김근모02", "박근민", "양두영", "최재원"};
-        public List<string> ID = new List<string>() {"qwer", "asdf", "zxcv", "1234", "qazx"};
-        public List<int> Win = new List<int>() {3, 2, 2, 1, 0};
-        public List<int> Defeat = new List<int>() {0, 1, 1, 2, 3};
-        public List<string> Team = new List<string>();
+        public class Team
+        {
+            public string TeamName { get; set; }
+            public string adminNickname { get; set; }
+            public List<string> nickname = new List<string>();
+            public List<int> Win = new List<int>();
+            public List<int> Defeat = new List<int>();
+        }
+
+        public class Myinfo
+        {
+            public string nickname { get; set; }
+            public string id { get; set; }
+            public string passward { get; set; }
+            public int Win { get; set; }
+            public int Defeat { get; set; }
+        }
+
+        public class UserInfo
+        {
+            public List<string> nickname = new List<string>();
+            public List<string> id = new List<string>();
+            public List<string> passward = new List<string>();
+            public List<int> Win = new List<int>();
+            public List<int> Defeat = new List<int>();
+        }
+        public List<Team> TeamList = new List<Team>();
+        
+        Myinfo myinfo = new Myinfo();
+        UserInfo userinfo = new UserInfo();
 
         public Form1()
         {
@@ -27,7 +51,22 @@ namespace team_match_program
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            IdPassward.Add("1", "1");
+            userinfo.nickname.Add("김근모01");
+            userinfo.id.Add("asdf");
+            userinfo.passward.Add("asdf");
+            userinfo.Win.Add(3);
+            userinfo.Defeat.Add(0);
+            userinfo.nickname.Add("최재원");
+            userinfo.id.Add("1234");
+            userinfo.passward.Add("1234");
+            userinfo.Win.Add(2);
+            userinfo.Defeat.Add(1);
+            Team team = new Team();
+            userinfo.id.Add("1");
+            userinfo.passward.Add("1");
+            userinfo.nickname.Add("tester");
+            userinfo.Win.Add(0);
+            userinfo.Defeat.Add(0);
             bool flag = false;
             while (true)
             {
@@ -47,14 +86,17 @@ namespace team_match_program
                     DialogResult sresult = signup.ShowDialog();
                     if (sresult == DialogResult.OK)
                     {
-                        foreach (KeyValuePair<string, string> username in IdPassward)
+                        foreach (string username in userinfo.id)
                         {
-                            if (username.Key == signup.NewID)
+                            if (username == signup.NewID)
                             {
                                 MessageBox.Show("실패");
                                 flag = true;
                             }
-                            else if(username.Value == signup.NewPass)
+                        }
+                        foreach (string username in userinfo.passward)
+                        {
+                            if (username == signup.NewPass)
                             {
                                 MessageBox.Show("실패");
                                 flag = true;
@@ -62,11 +104,11 @@ namespace team_match_program
                         }
                         if (!flag)
                         {
-                            IdPassward.Add(signup.NewID, signup.NewPass);
-                            Nickname.Add(signup.NickName);
-                            ID.Add(signup.NewID);
-                            Win.Add(0);
-                            Defeat.Add(0);
+                            userinfo.id.Add(signup.NewID);
+                            userinfo.passward.Add(signup.NewPass);
+                            userinfo.nickname.Add(signup.NickName);
+                            userinfo.Win.Add(0);
+                            userinfo.Defeat.Add(0);
                         }
                         else
                         {
@@ -77,15 +119,25 @@ namespace team_match_program
                 
                 else if (drResult == DialogResult.OK)
                 {
-                    foreach (KeyValuePair<string, string> username in IdPassward)
+                    for (int i = 0; i < userinfo.id.Count; i++)
                     {
-                        if (username.Key == login.inputID && username.Value == login.inputPass)
+                        if (userinfo.id[i] == login.inputID && userinfo.passward[i] == login.inputPass)
                         {
                             MessageBox.Show("성공");
                             frmOption option = new frmOption();
                             DialogResult oresult = option.ShowDialog();
                             if (oresult == DialogResult.OK)
                             {
+                                myinfo.id = login.inputID;
+                                myinfo.passward = login.inputPass;
+                                for (int j = 0; j < userinfo.nickname.Count; j++)
+                                {
+                                    if (userinfo.passward[j] == myinfo.passward)
+                                    {
+                                        myinfo.nickname = userinfo.nickname[j];
+                                    }
+                                }
+                                
 
                             }
                                 goto EXITFOR;
@@ -114,8 +166,13 @@ namespace team_match_program
             DialogResult crResult = create.ShowDialog();
             if (crResult == DialogResult.OK)
             {
-                Team.Add(create.name);
-                frmTeamManagement_admin admin = new frmTeamManagement_admin(Team);
+                Team team = new Team();
+                team.TeamName = create.name;
+                team.adminNickname = myinfo.nickname;
+                team.nickname.Add(myinfo.nickname);
+                team.Win.Add(myinfo.Win);
+                team.Defeat.Add(myinfo.Defeat);
+                frmTeamManagement_admin admin = new frmTeamManagement_admin(myinfo, team);
                 DialogResult adResult = admin.ShowDialog();
             }
         }

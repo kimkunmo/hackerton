@@ -16,5 +16,10 @@ namespace team_match_program
         {
             InitializeComponent();
         }
+
+        private void frmTeamJoin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

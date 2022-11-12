@@ -167,5 +167,29 @@
   <ItemGroup>
     <None Include="Resources\963be00065384f8e.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\로그인.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\회원가입.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\계정생성.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\취소.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\완료!.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\팀생성.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\팀 가입.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\매칭팀선택.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
